@@ -1,6 +1,12 @@
 server:
   port: 8080
 
+#domain-url: https://fu.co
+domain-url: http://localhost:${server.port}
+
+record:
+  expires-in-days: 7
+
 spring:
   datasource:
     url: jdbc:h2:file:./shortener

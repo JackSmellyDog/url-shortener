@@ -22,8 +22,8 @@ public class UrlMappingRecord {
   @Column(name = "original_url", nullable = false)
   private String originalUrl;
 
-  @Column(name = "hash")
-  private String shortUrl;
+  @Column(name = "url_hash")
+  private String urlHash;
 
   @Column(name = "creation_date")
   private LocalDateTime creationDate;
