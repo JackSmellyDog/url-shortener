@@ -17,8 +17,8 @@ public class ExceptionHandlerResolver {
     return new ModelAndView("main-page", "error", e.getMessage());
   }
 
-  @ExceptionHandler(NoSuchHashException.class)
-  public ModelAndView noSuchHash(NoSuchHashException e) {
+  @ExceptionHandler({NoSuchHashException.class, IllegalStateException.class})
+  public ModelAndView noSuchHash(RuntimeException e) {
     return new ModelAndView("error-404", "error", e.getMessage());
   }
 

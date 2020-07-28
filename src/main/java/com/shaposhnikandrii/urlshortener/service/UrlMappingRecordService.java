@@ -32,7 +32,6 @@ public class UrlMappingRecordService {
 
     urlMappingRecordRepository.save(urlMappingRecord);
     urlMappingRecord.setUrlHash(base62Converter.base62From10(urlMappingRecord.getId()));
-    urlMappingRecordRepository.save(urlMappingRecord);
 
     return urlMappingRecord;
   }
@@ -42,7 +41,9 @@ public class UrlMappingRecordService {
   }
 
   public String findOriginalUrlByHash(String hash) {
-    return urlMappingRecordRepository.findByUrlHash(hash)
+    final long id = base62Converter.base10From62(hash);
+
+    return urlMappingRecordRepository.findById(id)
         .map(UrlMappingRecord::getOriginalUrl)
         .orElseThrow(NoSuchHashException::new);
   }

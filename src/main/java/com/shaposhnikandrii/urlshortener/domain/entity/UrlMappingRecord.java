@@ -22,7 +22,7 @@ public class UrlMappingRecord {
   @Column(name = "original_url", nullable = false)
   private String originalUrl;
 
-  @Column(name = "url_hash")
+  @Transient
   private String urlHash;
 
   @Column(name = "creation_date")

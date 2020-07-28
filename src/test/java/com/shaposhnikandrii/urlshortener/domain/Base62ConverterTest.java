@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 class Base62ConverterTest {
@@ -14,10 +14,14 @@ class Base62ConverterTest {
 
 
   @Test
-  void base62From10() {
+  void base62() {
+    for (long i = 0; i < 100_000_000; i++ ) {
+      final String base62Value = base62Converter.base62From10(i);
+      final long base10Value = base62Converter.base10From62(base62Value);
+
+      assertEquals(i, base10Value);
+    }
+
   }
 
-  @Test
-  void base10From62() {
-  }
 }
