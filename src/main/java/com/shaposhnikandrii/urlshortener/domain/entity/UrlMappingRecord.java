@@ -3,7 +3,6 @@ package com.shaposhnikandrii.urlshortener.domain.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @Table(name = "url_mapping_record")
 @Entity
-@DynamicUpdate
 public class UrlMappingRecord {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class UrlMappingRecord {
   @Column(name = "expiration_date")
   private LocalDateTime expirationDate;
 
-  @Column(name = "visitors")
+  @Column(name = "visitors", columnDefinition = "integer default 0")
   private Integer visitors;
 
 }

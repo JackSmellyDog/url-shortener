@@ -40,11 +40,15 @@ public class UrlMappingRecordService {
     urlMappingRecordRepository.save(urlMappingRecord);
   }
 
-  public String findOriginalUrlByHash(String hash) {
+  public UrlMappingRecord findUrlMappingRecordByHash(String hash) {
     final long id = base62Converter.base10From62(hash);
 
     return urlMappingRecordRepository.findById(id)
-        .map(UrlMappingRecord::getOriginalUrl)
-        .orElseThrow(NoSuchHashException::new);
+        .orElseThrow(NoSuchHashException::new)
+        .setUrlHash(hash);
+  }
+
+  public void incrementVisitorsCounter(UrlMappingRecord urlMappingRecord) {
+    urlMappingRecordRepository.incrementVisitorCounterById(urlMappingRecord.getId());
   }
 }

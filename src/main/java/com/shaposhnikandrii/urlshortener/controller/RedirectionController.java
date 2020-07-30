@@ -4,6 +4,7 @@ import com.shaposhnikandrii.urlshortener.domain.entity.UrlMappingRecord;
 import com.shaposhnikandrii.urlshortener.service.UrlMappingRecordService;
 import com.shaposhnikandrii.urlshortener.validator.url.ValidUrl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
@@ -38,11 +40,13 @@ public class RedirectionController {
     return "main-page";
   }
 
-  @GetMapping("/{hash}")
+  @GetMapping("/{hash:[0-9a-zA-Z]{1,6}}")
   public String redirection(@PathVariable String hash) {
-    final String originalUrl = urlMappingRecordService.findOriginalUrlByHash(hash);
+    final UrlMappingRecord urlMappingRecord = urlMappingRecordService.findUrlMappingRecordByHash(hash);
+    urlMappingRecordService.incrementVisitorsCounter(urlMappingRecord);
 
-    return "redirect:" + originalUrl;
+    log.info("Link {}/{} has been visited", domainUrl, urlMappingRecord.getUrlHash());
+    return "redirect:" + urlMappingRecord.getOriginalUrl();
   }
 
 }
