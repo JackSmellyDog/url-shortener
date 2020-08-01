@@ -1,7 +1,6 @@
 server:
   port: 8080
 
-#domain-url: https://fu.co
 domain-url: http://localhost:${server.port}
 
 record:
@@ -12,11 +11,13 @@ spring:
     url: jdbc:h2:file:./shortener
     username: ca
     password:
-    initialization-mode: never
+    initialization-mode: always
     driverClassName: org.h2.Driver
+    data: classpath:sql/data.sql
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties.hibernate.jdbc.lob.non_contextual_creation: true
+
 

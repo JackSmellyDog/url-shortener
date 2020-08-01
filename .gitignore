@@ -36,3 +36,4 @@ build/
 /mvnw.cmd
 /shortener.mv.db
 /logs/
+/shortener.trace.db
