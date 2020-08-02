@@ -1,10 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Records</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"/>
 </head>
 <body>
+
+<div class="container">
+    <div class="row mt-5">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>URL hash</th>
+                <th>Original URL</th>
+                <th>Creation Date</th>
+                <th>Expiration Date</th>
+                <th>Visitors</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="record : ${records.content}">
+                <td th:text="${record.urlHash}"></td>
+                <td>
+                    <a th:href="${record.originalUrl}" th:text="${record.originalUrl}" target="_blank"></a>
+                </td>
+                <td th:text="${#temporals.format(record.creationDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td th:text="${#temporals.format(record.expirationDate, 'dd-MM-yyyy HH:mm:ss')}"></td>
+                <td th:text="${record.visitors}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <nav aria-label="Pagination" th:if="${records.totalPages gt 0}">
+            <ul class="pagination justify-content-center font-weight-bold">
+                <li class="page-item" th:classappend="${records.number eq 0} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/admin-panel/records?page={id}(id=${records.number lt 2 ? 1 : records.number})}"
+                       aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" th:classappend="${i eq records.number + 1} ? 'active'"
+                    th:each="i : ${#numbers.sequence( 1, records.totalPages, 1)}">
+                    <a class="page-link" th:href="@{/admin-panel/records?page={id}(id=${i})}" th:text="${i}"
+                       th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+                </li>
+                <li class="page-item" th:classappend="${records.number + 1 eq records.totalPages} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{/admin-panel/records?page={id}(id=${records.number + 2})}"
+                       aria-label="Next" title="Next Page" data-toggle="tooltip">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</div>
 
 </body>
 </html>

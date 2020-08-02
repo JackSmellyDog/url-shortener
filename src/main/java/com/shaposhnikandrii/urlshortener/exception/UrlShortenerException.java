@@ -1,6 +1,6 @@
 package com.shaposhnikandrii.urlshortener.exception;
 
-public class UrlShortenerException extends RuntimeException {
+public abstract class UrlShortenerException extends RuntimeException {
   public UrlShortenerException() {
   }
 

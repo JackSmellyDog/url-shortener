@@ -1,13 +1,13 @@
 package com.shaposhnikandrii.urlshortener.repository;
 
 import com.shaposhnikandrii.urlshortener.domain.entity.UrlMappingRecord;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;
 
-public interface UrlMappingRecordRepository extends CrudRepository<UrlMappingRecord, Long> {
+public interface UrlMappingRecordRepository extends JpaRepository<UrlMappingRecord, Long> {
 
   @Modifying
   @Transactional
