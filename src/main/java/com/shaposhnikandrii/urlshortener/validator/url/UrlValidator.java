@@ -18,7 +18,7 @@ public class UrlValidator implements ConstraintValidator<ValidUrl, String> {
 
       return "http".equals(protocol) || "https".equals(protocol);
     } catch (MalformedURLException e) {
-      log.warn("Invalid url: ({})", s, e);
+      log.warn("Invalid url: ({})", s);
       return false;
     }
   }

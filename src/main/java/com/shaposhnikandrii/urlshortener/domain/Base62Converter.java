@@ -31,7 +31,10 @@ public class Base62Converter {
     Objects.requireNonNull(base62Value);
 
     if (!base62Value.matches(BASE_62_NUMBER_VALIDATION)) {
-      final String message = String.format("Invalid value, string must must match this regular expression: %s", BASE_62_NUMBER_VALIDATION);
+      final String message = String.format("Invalid value: (%s), string must must match this regular expression: %s",
+          base62Value,
+          BASE_62_NUMBER_VALIDATION);
+
       throw new IllegalStateException(message);
     }
 

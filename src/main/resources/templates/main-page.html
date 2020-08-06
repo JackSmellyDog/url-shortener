@@ -14,11 +14,13 @@
             </div>
 
             <div class="col-9">
-                <input placeholder="Enter the link here" type="text" class="form-control" id="longUrl" name="longUrl" th:value="${longUrl}"/>
+                <input placeholder="Enter the link here" type="text" class="form-control" id="longUrl" name="longUrl"
+                       th:value="${longUrl}"/>
             </div>
 
             <div class="col-2">
-                <button class="btn btn-primary btn-block" name="action" th:value="update" type="submit">Shorten URL</button>
+                <button class="btn btn-primary btn-block" name="action" th:value="update" type="submit">Shorten URL
+                </button>
             </div>
         </div>
     </form>
@@ -29,11 +31,14 @@
         </div>
 
         <div class="col-9">
-            <input type="text" readonly="readonly" class="form-control" id="shortUrl" name="shortUrl" th:value="${shortUrl}"/>
+            <input type="text" readonly="readonly" class="form-control" id="shortUrl" name="shortUrl"
+                   th:value="${shortUrl}"/>
         </div>
 
         <div class="col-2">
-            <button class="btn btn-primary btn-block" name="action" th:value="update" type="submit">Copy</button>
+            <button class="btn btn-primary btn-block" name="action" th:value="update" onclick="copyToClipboard()"
+                    type="submit">Copy
+            </button>
         </div>
     </div>
 
@@ -48,6 +53,13 @@
     </div>
 
 </div>
+<script>
+    const copyToClipboard = () => {
+        const el = document.getElementById("shortUrl");
+        el.select();
+        document.execCommand('copy');
+    };
+</script>
 
 </body>
 </html>
